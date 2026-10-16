@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
 
+import 'config/app_theme.dart';
+import 'config/routes.dart';
+
 void main() {
   runApp(const QuizApp());
 }
@@ -10,13 +13,11 @@ class QuizApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text('Quiz App'),
-        ),
-      ),
+      title: 'Kuis Interaktif',
+      theme: AppTheme.lightTheme,
+      routerConfig: appRouter,
     );
   }
 }
