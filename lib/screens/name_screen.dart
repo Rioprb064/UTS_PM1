@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:provider/provider.dart';
+import '../state/quiz_controller.dart';
 import '../config/app_theme.dart';
 
 class NameScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _NameScreenState extends State<NameScreen> {
   String _name = '';
   bool _showError = false;
 
+
   void _continueToHome() {
     if (_name.trim().isEmpty) {
       setState(() {
@@ -23,7 +25,11 @@ class _NameScreenState extends State<NameScreen> {
       return;
     }
 
-    context.go('/home', extra: _name.trim());
+    final name = _name.trim();
+
+    context.read<QuizController>().setUserName(name);
+
+    context.go('/home', extra: name);
   }
 
   @override
@@ -44,27 +50,32 @@ class _NameScreenState extends State<NameScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.04,
-                  vertical: screenHeight * 0.03,
+                  vertical: screenHeight * 0.02,
                 ),
 
                 child: Column(
                   children: [
                     Text(
-                      'Selamat Datang!',
+                      'KUIS ASAH OTAK',
                       textAlign: TextAlign.center,
                       style: AppTextStyles.appTitle.copyWith(
                         color: AppColors.text,
                       ),
                     ),
-                    Text(
-                      'Kuis Asah Otak',
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.pageTitle.copyWith(
-                        color: AppColors.surface,
-                      ),
-                    ),
                   ],
                 ),
+              ),
+            ),
+          ),
+
+          SizedBox(height: screenHeight * 0.02),
+
+          Container(
+            child: Text(
+              'SELAMAT DATANG!',
+              textAlign: TextAlign.center,
+              style: AppTextStyles.pageTitle.copyWith(
+                color: AppColors.text,
               ),
             ),
           ),
@@ -184,7 +195,7 @@ class _NameScreenState extends State<NameScreen> {
                             // Tombol lanjut
                             SizedBox(
                               width: double.infinity,
-                              height: screenHeight * 0.075,
+                              height: screenHeight * 0.06,
 
                               child: ElevatedButton(
                                 onPressed: _continueToHome,
@@ -198,7 +209,7 @@ class _NameScreenState extends State<NameScreen> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius:
                                     BorderRadius.circular(
-                                      screenWidth * 0.03,
+                                      screenWidth * 0.1,
                                     ),
                                   ),
                                 ),
@@ -207,7 +218,7 @@ class _NameScreenState extends State<NameScreen> {
                                   'Lanjut',
                                   style: AppTextStyles.answer
                                       .copyWith(
-                                    color: AppColors.surface,
+                                    color: AppColors.text,
                                   ),
                                 ),
                               ),

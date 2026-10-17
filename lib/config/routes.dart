@@ -21,20 +21,12 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) =>
-      const NameScreen(),
+      builder: (context, state) => const NameScreen(),
     ),
 
     GoRoute(
       path: '/home',
-      builder: (context, state) {
-        final String userName =
-        state.extra as String;
-
-        return HomeScreen(
-          userName: userName,
-        );
-      },
+      builder: (context, state) => const HomeScreen(),
     ),
   ],
 );

@@ -1,11 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'config/app_theme.dart';
 import 'config/routes.dart';
+import 'state/quiz_controller.dart';
 
 void main() {
-  runApp(const QuizApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => QuizController(),
+      child: const QuizApp(),
+    ),
+  );
 }
 
 class QuizApp extends StatelessWidget {
