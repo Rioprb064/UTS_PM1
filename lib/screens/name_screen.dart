@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../state/quiz_controller.dart';
-import '../config/app_theme.dart';
+import '../state/theme_controller.dart';
 
 class NameScreen extends StatefulWidget {
   const NameScreen({super.key});
@@ -36,14 +35,15 @@ class _NameScreenState extends State<NameScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final isDarkMode = context.watch<ThemeController>().isDarkMode;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Container(
             width: double.infinity,
-            color: AppColors.primary,
+            color: Theme.of(context).colorScheme.primary,
 
             child: SafeArea(
               bottom: false,
@@ -53,16 +53,47 @@ class _NameScreenState extends State<NameScreen> {
                   vertical: screenHeight * 0.02,
                 ),
 
-                child: Column(
-                  children: [
-                    Text(
-                      'KUIS ASAH OTAK',
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.appTitle.copyWith(
-                        color: AppColors.text,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 42),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'KUIS ASAH OTAK',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.displayLarge,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(
+                            minWidth: 40,
+                            minHeight: 40,
+                          ),
+                          onPressed: () {
+                            context.read<ThemeController>().toggleTheme();
+                          },
+                          icon: Icon(
+                            isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                            color: Theme.of(context).colorScheme.onSurface,
+                            size: 28,
+                          ),
+                          tooltip: isDarkMode
+                              ? 'Aktifkan Mode Terang'
+                              : 'Aktifkan Mode Gelap',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -74,9 +105,7 @@ class _NameScreenState extends State<NameScreen> {
             child: Text(
               'SELAMAT DATANG!',
               textAlign: TextAlign.center,
-              style: AppTextStyles.pageTitle.copyWith(
-                color: AppColors.text,
-              ),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
 
@@ -121,7 +150,7 @@ class _NameScreenState extends State<NameScreen> {
                             Text(
                               'Siapa nama kamu?',
                               textAlign: TextAlign.center,
-                              style: AppTextStyles.pageTitle,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
 
                             SizedBox(
@@ -132,7 +161,7 @@ class _NameScreenState extends State<NameScreen> {
                             Text(
                               'Sebelum lanjut, masukkan nama kamu dulu.',
                               textAlign: TextAlign.center,
-                              style: AppTextStyles.instruction,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
 
                             SizedBox(
@@ -144,7 +173,7 @@ class _NameScreenState extends State<NameScreen> {
                               maxLength: 30,
                               textCapitalization:
                               TextCapitalization.words,
-                              style: AppTextStyles.answer,
+                              style: Theme.of(context).textTheme.bodyLarge,
 
                               onChanged: (value) {
                                 setState(() {
@@ -156,17 +185,17 @@ class _NameScreenState extends State<NameScreen> {
                               decoration: InputDecoration(
                                 hintText: 'Masukkan nama',
                                 hintStyle:
-                                AppTextStyles.instruction.copyWith(
-                                  color: Colors.grey.shade400,
+                                Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 ),
 
 
                                 filled: true,
-                                fillColor: AppColors.surface,
+                                fillColor: Theme.of(context).colorScheme.surface,
 
-                                prefixIcon: const Icon(
+                                prefixIcon: Icon(
                                   Icons.person_outline,
-                                  color: AppColors.accent,
+                                  color: Theme.of(context).colorScheme.tertiary,
                                 ),
 
                                 border: OutlineInputBorder(
@@ -182,9 +211,8 @@ class _NameScreenState extends State<NameScreen> {
                             if (_showError)
                               Text(
                                 'Nama tidak boleh kosong',
-                                style: AppTextStyles.instruction
-                                    .copyWith(
-                                  color: Colors.red,
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
                                 ),
                               ),
 
@@ -202,9 +230,9 @@ class _NameScreenState extends State<NameScreen> {
 
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                  AppColors.primary,
+                                  Theme.of(context).colorScheme.primary,
                                   foregroundColor:
-                                  AppColors.surface,
+                                  Theme.of(context).colorScheme.onSurface,
 
                                   shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -216,10 +244,7 @@ class _NameScreenState extends State<NameScreen> {
 
                                 child: Text(
                                   'Lanjut',
-                                  style: AppTextStyles.answer
-                                      .copyWith(
-                                    color: AppColors.text,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                             ),

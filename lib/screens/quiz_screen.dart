@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../config/app_theme.dart';
 import '../data/quiz_questions.dart';
 import '../state/quiz_controller.dart';
+import '../state/theme_controller.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -17,18 +17,40 @@ class QuizScreen extends StatelessWidget {
 
     final quiz = context.watch<QuizController>();
     final question = quizQuestions[quiz.currentIndex];
+    final isDarkMode = context.watch<ThemeController>().isDarkMode;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text(
-          'KUIS ASAH OTAK',
-          style: AppTextStyles.appTitle,
+        scrolledUnderElevation: 0,
+        leading: const SizedBox(width: 56),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            'KUIS ASAH OTAK',
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<ThemeController>().toggleTheme();
+            },
+            icon: Icon(
+              isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              color: Theme.of(context).colorScheme.onSurface,
+              size: 28,
+            ),
+            tooltip: isDarkMode
+                ? 'Aktifkan Mode Terang'
+                : 'Aktifkan Mode Gelap',
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
 
       body: SafeArea(
@@ -47,15 +69,15 @@ class QuizScreen extends StatelessWidget {
                   Text(
                     '${quiz.answeredCount} dari ${quiz.totalQuestions} soal terjawab',
                     textAlign: TextAlign.center,
-                    style: AppTextStyles.instruction,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
 
                   SizedBox(height: screenHeight * 0.02),
 
                   LinearProgressIndicator(
                     value: quiz.answeredCount / quiz.totalQuestions,
-                    backgroundColor: AppColors.surface,
-                    color: AppColors.accent,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.tertiary,
                     minHeight: 10,
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -65,7 +87,7 @@ class QuizScreen extends StatelessWidget {
                   // NOMOR SOAL
                   Text(
                     'Pertanyaan ${quiz.currentIndex + 1}',
-                    style: AppTextStyles.pageTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
 
                   SizedBox(height: screenHeight * 0.02),
@@ -73,7 +95,7 @@ class QuizScreen extends StatelessWidget {
                   // PERTANYAAN
                   Text(
                     question.question,
-                    style: AppTextStyles.question,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
 
                   SizedBox(height: screenHeight * 0.03),
@@ -90,9 +112,10 @@ class QuizScreen extends StatelessWidget {
                         },
                         style: OutlinedButton.styleFrom(
                           backgroundColor: quiz.selectedAnswer == i
-                              ? AppColors.primary
-                              : AppColors.surface,
-                          foregroundColor: AppColors.text,
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.surface,
+                          foregroundColor:
+                          Theme.of(context).colorScheme.onSurface,
                           padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.04,
                             vertical: screenHeight * 0.02,
@@ -102,7 +125,7 @@ class QuizScreen extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             '${String.fromCharCode(65 + i)}. ${question.options[i]}',
-                            style: AppTextStyles.answer,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
                       ),
@@ -121,7 +144,7 @@ class QuizScreen extends StatelessWidget {
                               : null,
                           child: Text(
                             'Sebelumnya',
-                            style: AppTextStyles.answer,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
                       ),
@@ -138,12 +161,18 @@ class QuizScreen extends StatelessWidget {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.accent,
-                            foregroundColor: AppColors.text,
+                            backgroundColor: Theme.of(context).colorScheme.tertiary,
+                            foregroundColor: isDarkMode
+                                ? AppColors.darkBackground
+                                : AppColors.text,
                           ),
                           child: Text(
                             'Selanjutnya',
-                            style: AppTextStyles.answer,
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: isDarkMode
+                                  ? AppColors.darkBackground
+                                  : AppColors.text,
+                            ),
                           ),
                         ),
                       ),
@@ -162,11 +191,11 @@ class QuizScreen extends StatelessWidget {
                             return AlertDialog(
                               title: Text(
                                 'Selesaikan Kuis?',
-                                style: AppTextStyles.pageTitle,
+                                style: Theme.of(context).textTheme.headlineMedium,
                               ),
                               content: Text(
                                 'Apakah kamu sudah yakin dengan jawabanmu?',
-                                style: AppTextStyles.instruction,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                               actions: [
                                 TextButton(
@@ -175,7 +204,7 @@ class QuizScreen extends StatelessWidget {
                                   },
                                   child: Text(
                                     'Belum',
-                                    style: AppTextStyles.answer,
+                                    style: Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ),
                                 ElevatedButton(
@@ -183,12 +212,20 @@ class QuizScreen extends StatelessWidget {
                                     Navigator.of(dialogContext).pop(true);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.accent,
-                                    foregroundColor: AppColors.text,
+                                    backgroundColor: Theme.of(dialogContext)
+                                        .colorScheme.tertiary,
+                                    foregroundColor: isDarkMode
+                                        ? AppColors.darkBackground
+                                        : AppColors.text,
                                   ),
                                   child: Text(
                                     'Sudah',
-                                    style: AppTextStyles.answer,
+                                    style: Theme.of(dialogContext)
+                                        .textTheme.bodyLarge?.copyWith(
+                                      color: isDarkMode
+                                          ? AppColors.darkBackground
+                                          : AppColors.text,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -203,12 +240,18 @@ class QuizScreen extends StatelessWidget {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.accent,
-                        foregroundColor: AppColors.text,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
+                        foregroundColor: isDarkMode
+                            ? AppColors.darkBackground
+                            : AppColors.text,
                       ),
                       child: Text(
                         'Selesai',
-                        style: AppTextStyles.answer,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: isDarkMode
+                              ? AppColors.darkBackground
+                              : AppColors.text,
+                        ),
                       ),
                     ),
 

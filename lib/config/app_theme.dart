@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  // terang
   static const Color primary = Color(0xFFA8D8FF);
   static const Color secondary = Color(0xFFFFF0C5);
   static const Color accent = Color(0xFFFF8C52);
@@ -9,6 +10,15 @@ class AppColors {
   static const Color background = Color(0xFFF7F8FF);
   static const Color surface = Color(0xFFFFFFFF);
   static const Color text = Color(0xFF243049);
+
+  // gelap
+  static const Color darkPrimary = Color(0xFF365D82);
+  static const Color darkSecondary = Color(0xFFF5D68C);
+  static const Color darkAccent = Color(0xFFFFAD76);
+
+  static const Color darkBackground = Color(0xFF151D2B);
+  static const Color darkSurface = Color(0xFF253148);
+  static const Color darkText = Color(0xFFF3F6FF);
 }
 
 class AppTextStyles {
@@ -57,10 +67,12 @@ class AppTextStyles {
 }
 
 class AppTheme {
+  // LIGHT THEME
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       fontFamily: 'Nunito',
+      brightness: Brightness.light,
 
       scaffoldBackgroundColor: AppColors.background,
 
@@ -80,6 +92,49 @@ class AppTheme {
         titleLarge: AppTextStyles.question,
         bodyLarge: AppTextStyles.answer,
         bodyMedium: AppTextStyles.instruction,
+      ),
+    );
+  }
+
+  // DARK THEME
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      fontFamily: 'Nunito',
+      brightness: Brightness.dark,
+
+      scaffoldBackgroundColor: AppColors.darkBackground,
+
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.darkPrimary,
+        brightness: Brightness.dark,
+      ).copyWith(
+        primary: AppColors.darkPrimary,
+        onPrimary: AppColors.darkText,
+        secondary: AppColors.darkSecondary,
+        onSecondary: AppColors.darkBackground,
+        tertiary: AppColors.darkAccent,
+        onTertiary: AppColors.darkBackground,
+        surface: AppColors.darkSurface,
+        onSurface: AppColors.darkText,
+      ),
+
+      textTheme: TextTheme(
+        displayLarge: AppTextStyles.appTitle.copyWith(
+          color: AppColors.darkText,
+        ),
+        headlineMedium: AppTextStyles.pageTitle.copyWith(
+          color: AppColors.darkText,
+        ),
+        titleLarge: AppTextStyles.question.copyWith(
+          color: AppColors.darkText,
+        ),
+        bodyLarge: AppTextStyles.answer.copyWith(
+          color: AppColors.darkText,
+        ),
+        bodyMedium: AppTextStyles.instruction.copyWith(
+          color: AppColors.darkText,
+        ),
       ),
     );
   }

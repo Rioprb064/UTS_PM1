@@ -1,17 +1,73 @@
-# uts_pm1
+# Kuis Asah Otak
 
-A new Flutter project.
+## 1. Identitas Mahasiswa
 
-## Getting Started
+- **Nama:** [Nama mahasiswa]
+- **NIM:** [NIM mahasiswa]
+- **Lab:** [Nama lab]
 
-This project is a starting point for a Flutter application.
+## 2. Informasi Aplikasi
 
-A few resources to get you started if this is your first Flutter project:
+**Nama Aplikasi:** Kuis Asah Otak
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+**Deskripsi Singkat:**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Kuis Asah Otak adalah aplikasi kuis pilihan ganda yang memungkinkan pengguna memasukkan nama, mengerjakan 10 pertanyaan dengan empat pilihan jawaban, dan melihat nilai akhir beserta hasil pemeriksaan setiap jawaban.
+
+**Fitur-fitur:**
+
+- Memasukkan nama pengguna sebelum memulai kuis.
+- Menjawab 10 soal pilihan ganda.
+- Menampilkan jumlah soal yang sudah dijawab dan progres pengerjaan.
+- Berpindah ke soal sebelumnya atau selanjutnya tanpa menghapus jawaban yang dipilih.
+- Mengarahkan pengguna ke soal yang belum dijawab sebelum kuis diselesaikan.
+- Menampilkan konfirmasi sebelum menyelesaikan kuis.
+- Menampilkan nilai akhir dan jumlah jawaban benar.
+- Menampilkan seluruh soal, jawaban pengguna, dan jawaban yang benar, dengan penanda hijau untuk jawaban benar serta merah untuk jawaban salah.
+- Kembali ke halaman utama untuk mengulang kuis.
+- Mengganti tampilan antara Light Mode dan Dark Mode.
+
+## 3. Dokumentasi
+
+### Credit Sumber Aset
+
+- **Gambar `anak_sd.png`:** [(https://png.pngtree.com/png-vector/20230722/ourmid/pngtree-elementary-school-students-vector-png-image_8322931.png)]
+- **Gambar `home.png`:** [(https://png.pngtree.com/png-clipart/20240706/original/pngtree-happy-school-children-holding-stationery-in-the-school-yard-png-image_15501907.png)]
+- **Gambar `trofi.png`:** [(https://png.pngtree.com/png-clipart/20250103/original/pngtree-gold-trophy-icon-trophy-icon-winner-icon-png-image_4979039.png)]
+- **Font Fredoka:** [Google Fonts](https://fonts.google.com/specimen/Fredoka)
+- **Font Nunito:** [Google Fonts](https://fonts.google.com/specimen/Nunito)
+
+### Screenshot Tiap Halaman Aplikasi
+
+**NameScreen — Halaman Input Nama**
+
+![Halaman Input Nama](screenshots/name_screen.png)
+
+**HomeScreen — Halaman Utama**
+
+![Halaman Utama](screenshots/home_screen.png)
+
+**QuizScreen — Halaman Kuis**
+
+![Halaman Kuis](screenshots/quiz_screen.png)
+
+**ResultScreen — Halaman Hasil Kuis**
+
+![Halaman Hasil Kuis](screenshots/result_screen.png)
+
+### Link Mockup/Prototype Aplikasi
+
+[Masukkan link mockup/prototype]
+
+### Link Video Presentasi (Google Drive)
+
+[Masukkan link video presentasi Google Drive]
+
+## 4. Video Presentasi (Maksimal 10 Menit)
+
+Video presentasi menampilkan dan menjelaskan:
+
+1. **Fungsionalitas aplikasi:** demonstrasi penggunaan aplikasi dari awal sampai akhir, termasuk seluruh fitur wajib dan fitur tambahan.
+2. **Responsivitas aplikasi:** tampilan yang menyesuaikan ukuran layar perangkat; jika memungkinkan, demonstrasi pada ukuran layar lain selain emulator mobile.
+3. **Alur dan implementasi aplikasi:** penjelasan alur kerja aplikasi selama demonstrasi.
+4. **Fitur tambahan:** fungsi, cara kerja, dan implementasi fitur tambahan pada aplikasi maupun kode.

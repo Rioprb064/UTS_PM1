@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config/app_theme.dart';
+import '../state/theme_controller.dart';
 import '../data/quiz_questions.dart';
 import '../state/quiz_controller.dart';
 import 'package:go_router/go_router.dart';
@@ -11,21 +12,39 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quiz = context.watch<QuizController>();
+    final isDarkMode = context.watch<ThemeController>().isDarkMode;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
         centerTitle: true,
         scrolledUnderElevation: 0,
+        leading: const SizedBox(width: 56),
         title: Text(
           'HASIL KUIS',
-          style: AppTextStyles.appTitle,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<ThemeController>().toggleTheme();
+            },
+            icon: Icon(
+              isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              color: Theme.of(context).colorScheme.onSurface,
+              size: 28,
+            ),
+            tooltip: isDarkMode
+                ? 'Aktifkan Mode Terang'
+                : 'Aktifkan Mode Gelap',
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
 
       body: SafeArea(
@@ -48,7 +67,7 @@ class ResultScreen extends StatelessWidget {
                       Text(
                         'Selamat, ${quiz.userName}!',
                         textAlign: TextAlign.center,
-                        style: AppTextStyles.pageTitle,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
 
                       SizedBox(
@@ -57,21 +76,21 @@ class ResultScreen extends StatelessWidget {
 
                       Text(
                         'Nilai Kamu',
-                        style: AppTextStyles.question,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
 
                       Text(
                         '${quiz.score}',
-                        style: AppTextStyles.appTitle.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge?.copyWith(
                           fontSize: 60,
-                          color: AppColors.accent,
+                          color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
 
                       Text(
                         '${quiz.correctCount} dari ${quiz.totalQuestions} soal benar',
                         textAlign: TextAlign.center,
-                        style: AppTextStyles.instruction,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
 
                       Container(
@@ -89,7 +108,7 @@ class ResultScreen extends StatelessWidget {
 
                       Text(
                         'Hasil Jawaban',
-                        style: AppTextStyles.pageTitle,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
 
                       SizedBox(
@@ -113,12 +132,18 @@ class ResultScreen extends StatelessWidget {
                           context.go('/home', extra: quiz.userName);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.accent,
-                          foregroundColor: AppColors.text,
+                          backgroundColor: Theme.of(context).colorScheme.tertiary,
+                          foregroundColor: isDarkMode
+                              ? AppColors.darkBackground
+                              : AppColors.text,
                         ),
                         child: Text(
                           'Kembali ke Home',
-                          style: AppTextStyles.answer,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: isDarkMode
+                                ? AppColors.darkBackground
+                                : AppColors.text,
+                          ),
                         ),
                       ),
                     ),
@@ -141,10 +166,12 @@ class ResultScreen extends StatelessWidget {
                   ),
 
                   decoration: BoxDecoration(
-                    color: AppColors.surface,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: isCorrect ? Colors.green : Colors.red,
+                      color: isCorrect
+                          ? (isDarkMode ? Colors.greenAccent : Colors.green)
+                          : (isDarkMode ? Colors.redAccent : Colors.red),
                       width: 2,
                     ),
                   ),
@@ -158,7 +185,7 @@ class ResultScreen extends StatelessWidget {
                           Expanded(
                             child: Text(
                               'Pertanyaan $index',
-                              style: AppTextStyles.pageTitle,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                           ),
 
@@ -167,8 +194,8 @@ class ResultScreen extends StatelessWidget {
                                 ? Icons.check_circle
                                 : Icons.cancel,
                             color: isCorrect
-                                ? Colors.green
-                                : Colors.red,
+                                ? (isDarkMode ? Colors.greenAccent : Colors.green)
+                                : (isDarkMode ? Colors.redAccent : Colors.red),
                             size: 28,
                           ),
                         ],
@@ -181,7 +208,7 @@ class ResultScreen extends StatelessWidget {
                       // teks pertanyaan
                       Text(
                         question.question,
-                        style: AppTextStyles.question,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
 
                       SizedBox(
@@ -204,10 +231,14 @@ class ResultScreen extends StatelessWidget {
 
                           decoration: BoxDecoration(
                             color: i == question.correctIndex
-                                ? Colors.green.shade50
+                                ? (isDarkMode
+                                ? const Color(0xFF224A3C)
+                                : Colors.green.shade50)
                                 : i == selectedIndex
-                                ? Colors.red.shade50
-                                : AppColors.background,
+                                ? (isDarkMode
+                                ? const Color(0xFF512D34)
+                                : Colors.red.shade50)
+                                : Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
 
@@ -220,9 +251,9 @@ class ResultScreen extends StatelessWidget {
                                     ? Icons.cancel
                                     : Icons.circle_outlined,
                                 color: i == question.correctIndex
-                                    ? Colors.green
+                                    ? (isDarkMode ? Colors.greenAccent : Colors.green)
                                     : i == selectedIndex
-                                    ? Colors.red
+                                    ? (isDarkMode ? Colors.redAccent : Colors.red)
                                     : Colors.grey,
                                 size: 22,
                               ),
@@ -234,7 +265,7 @@ class ResultScreen extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   '${String.fromCharCode(65 + i)}. ${question.options[i]}',
-                                  style: AppTextStyles.answer,
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                             ],
@@ -250,10 +281,10 @@ class ResultScreen extends StatelessWidget {
                         selectedIndex == null
                             ? 'Jawaban kamu: Belum dijawab'
                             : 'Jawaban kamu: ${String.fromCharCode(65 + selectedIndex)}. ${question.options[selectedIndex]}',
-                        style: AppTextStyles.instruction.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: isCorrect
-                              ? Colors.green.shade700
-                              : Colors.red.shade700,
+                              ? (isDarkMode ? Colors.greenAccent : Colors.green.shade700)
+                              : (isDarkMode ? Colors.redAccent : Colors.red.shade700),
                         ),
                       ),
 
@@ -265,8 +296,10 @@ class ResultScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'Jawaban benar: ${String.fromCharCode(65 + question.correctIndex)}. ${question.options[question.correctIndex]}',
-                            style: AppTextStyles.instruction.copyWith(
-                              color: Colors.green.shade700,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: isDarkMode
+                                  ? Colors.greenAccent
+                                  : Colors.green.shade700,
                             ),
                           ),
                         ),
