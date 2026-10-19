@@ -41,7 +41,7 @@ Kuis Asah Otak adalah aplikasi kuis pilihan ganda yang memungkinkan pengguna mem
 
 **NameScreen — Halaman Input Nama**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Name_screen.jpeg" alt="Halaman Input Nama" width="80">
+<https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Name_screen.jpeg?raw=true>
 
 **HomeScreen — Halaman Utama**
 
