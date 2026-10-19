@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../config/app_theme.dart';
 import '../data/quiz_questions.dart';
 import '../state/quiz_controller.dart';
+import 'package:go_router/go_router.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({super.key});
@@ -37,7 +38,7 @@ class ResultScreen extends StatelessWidget {
                 horizontal: MediaQuery.of(context).size.width * 0.06,
                 vertical: MediaQuery.of(context).size.height * 0.03,
               ),
-              itemCount: quizQuestions.length + 1,
+              itemCount: quizQuestions.length + 2,
 
               itemBuilder: (context, index) {
                 // nilai
@@ -98,7 +99,33 @@ class ResultScreen extends StatelessWidget {
                   );
                 }
 
-                // DATA SETIAP SOAL
+
+                if (index == quizQuestions.length + 1) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.read<QuizController>().resetQuiz();
+                          context.go('/home', extra: quiz.userName);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.accent,
+                          foregroundColor: AppColors.text,
+                        ),
+                        child: Text(
+                          'Kembali ke Home',
+                          style: AppTextStyles.answer,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                // data setiap soal
                 final question = quizQuestions[index - 1];
                 final selectedIndex = quiz.answerAt(index - 1);
                 final isCorrect =
@@ -125,7 +152,7 @@ class ResultScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // NOMOR DAN STATUS SOAL
+                      // nomor dan status soal
                       Row(
                         children: [
                           Expanded(
@@ -151,7 +178,7 @@ class ResultScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
 
-                      // TEKS PERTANYAAN
+                      // teks pertanyaan
                       Text(
                         question.question,
                         style: AppTextStyles.question,
@@ -161,7 +188,7 @@ class ResultScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
 
-                      // EMPAT OPSI JAWABAN
+                      // empat opsi jawaban
                       for (int i = 0; i < question.options.length; i++)
                         Container(
                           width: double.infinity,
@@ -218,7 +245,7 @@ class ResultScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
 
-                      // JAWABAN PENGGUNA
+                      // jawaban user
                       Text(
                         selectedIndex == null
                             ? 'Jawaban kamu: Belum dijawab'
@@ -230,7 +257,7 @@ class ResultScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // TAMPILKAN JAWABAN BENAR JIKA SALAH
+                      // tampilkan jawaban jika benar atau salah
                       if (!isCorrect)
                         Padding(
                           padding: EdgeInsets.only(

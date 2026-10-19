@@ -79,4 +79,13 @@ class QuizController extends ChangeNotifier {
   int get score =>
       (correctCount / totalQuestions * 100).round();
 
+  void resetQuiz() {
+    _currentIndex = 0;
+
+    for (int i = 0; i < _answers.length; i++) {
+      _answers[i] = null;
+    }
+
+    notifyListeners();
+  }
 }
