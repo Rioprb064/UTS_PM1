@@ -45,15 +45,15 @@ Kuis Asah Otak adalah aplikasi kuis pilihan ganda yang memungkinkan pengguna mem
 
 **HomeScreen — Halaman Utama**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Home_screen.jpeg" alt="Halaman Utama" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Home_screen.jpeg?raw=true)
 
 **QuizScreen — Halaman Kuis**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Quiz_screen.jpeg" alt="Halaman Kuis" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Quiz_screen.jpeg?raw=true)
 
 **ResultScreen — Halaman Hasil Kuis**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Result_screen.jpeg" alt="Halaman Hasil Kuis" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Result_screen.jpeg?raw=true)
 
 ### Link Mockup/Prototype Aplikasi
 
