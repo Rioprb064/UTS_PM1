@@ -57,11 +57,11 @@ Kuis Asah Otak adalah aplikasi kuis pilihan ganda yang memungkinkan pengguna mem
 
 ### Link Mockup/Prototype Aplikasi
 
-[https://www.canva.com/design/DAHYebsyy0U/7gMTPUb2AAwoB6RivF1GQA/edit]
+https://www.canva.com/design/DAHYebsyy0U/7gMTPUb2AAwoB6RivF1GQA/edit
 
 ### Link Video Presentasi (Google Drive)
 
-[Masukkan link video presentasi Google Drive]
+https://drive.google.com/drive/folders/1IuiV9FfPAF1O7Nvv7kpn125LPMYNlwoW?usp=sharing
 
 ## 4. Video Presentasi (Maksimal 10 Menit)
 
