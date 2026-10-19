@@ -25,6 +25,7 @@ class QuizController extends ChangeNotifier {
 
   int? get selectedAnswer => _answers[_currentIndex];
 
+  int? answerAt(int index) => _answers[index];
   // Menyimpan pilihan jawaban
   void selectAnswer(int index) {
     _answers[_currentIndex] = index;
@@ -59,4 +60,23 @@ class QuizController extends ChangeNotifier {
 
     return true;
   }
+
+
+  // Menghitung jumlah jawaban benar
+  int get correctCount {
+    int count = 0;
+
+    for (int i = 0; i < quizQuestions.length; i++) {
+      if (_answers[i] == quizQuestions[i].correctIndex) {
+        count++;
+      }
+    }
+
+    return count;
+  }
+
+  // Menghitung nilai akhir
+  int get score =>
+      (correctCount / totalQuestions * 100).round();
+
 }

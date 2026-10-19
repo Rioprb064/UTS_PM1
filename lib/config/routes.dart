@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../screens/quiz_screen.dart';
 import '../screens/name_screen.dart';
 import '../screens/home_screen.dart';
+import '../screens/result_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -32,6 +33,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/quiz',
       builder: (context, state) => const QuizScreen(),
+    ),
+
+    GoRoute(
+      path: '/result',
+      builder: (context, state) => const ResultScreen(),
     ),
   ],
 );
