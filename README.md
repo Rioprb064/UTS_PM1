@@ -2,9 +2,9 @@
 
 ## 1. Identitas Mahasiswa
 
-- **Nama:** [Nama mahasiswa]
-- **NIM:** [NIM mahasiswa]
-- **Lab:** [Nama lab]
+- **Nama:** Rionaldo Benedictus Purba
+- **NIM:** 241401064
+- **Lab:** Pemrograman Mobile 1
 
 ## 2. Informasi Aplikasi
 
@@ -41,23 +41,23 @@ Kuis Asah Otak adalah aplikasi kuis pilihan ganda yang memungkinkan pengguna mem
 
 **NameScreen — Halaman Input Nama**
 
-![Halaman Input Nama](screenshots/name_screen.png)
+<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Name_screen.jpeg" alt="Halaman Input Nama" width="80">
 
 **HomeScreen — Halaman Utama**
 
-![Halaman Utama](screenshots/home_screen.png)
+<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Home_screen.jpeg" alt="Halaman Utama" width="80">
 
 **QuizScreen — Halaman Kuis**
 
-![Halaman Kuis](screenshots/quiz_screen.png)
+<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Quiz_screen.jpeg" alt="Halaman Kuis" width="80">
 
 **ResultScreen — Halaman Hasil Kuis**
 
-![Halaman Hasil Kuis](screenshots/result_screen.png)
+<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Result_screen.jpeg" alt="Halaman Hasil Kuis" width="80">
 
 ### Link Mockup/Prototype Aplikasi
 
-[Masukkan link mockup/prototype]
+[https://www.canva.com/design/DAHYebsyy0U/7gMTPUb2AAwoB6RivF1GQA/edit]
 
 ### Link Video Presentasi (Google Drive)
 

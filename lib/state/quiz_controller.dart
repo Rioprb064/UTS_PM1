@@ -1,91 +1,78 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../data/quiz_questions.dart';
 
 class QuizController extends ChangeNotifier {
   String _userName = '';
+  int _currentIndex = 0;
+  final List<int?> _answers = List<int?>.filled(quizQuestions.length, null);
 
   String get userName => _userName;
+  int get currentIndex => _currentIndex;
+  int get totalQuestions => quizQuestions.length;
+  int get answeredCount => _answers.where((a) => a != null).length;
+  bool get isComplete => answeredCount == totalQuestions;
+  int? get selectedAnswer => _answers[_currentIndex];
+  int? answerAt(int index) => _answers[index];
 
   void setUserName(String name) {
-    _userName = name.trim();
+    final cleaned = name.trim();
+    if (cleaned.isEmpty) return;
+    _userName = cleaned;
+    _clearAnswers();
     notifyListeners();
   }
 
-  int _currentIndex = 0;
-
-  final List<int?> _answers =
-  List<int?>.filled(quizQuestions.length, null);
-
-  int get currentIndex => _currentIndex;
-
-  int get totalQuestions => quizQuestions.length;
-
-  int get answeredCount =>
-      _answers.where((answer) => answer != null).length;
-
-  int? get selectedAnswer => _answers[_currentIndex];
-
-  int? answerAt(int index) => _answers[index];
-  // Menyimpan pilihan jawaban
-  void selectAnswer(int index) {
-    _answers[_currentIndex] = index;
+  void selectAnswer(int optionIndex) {
+    final count = quizQuestions[_currentIndex].options.length;
+    if (optionIndex < 0 || optionIndex >= count) return;
+    _answers[_currentIndex] = optionIndex;
     notifyListeners();
   }
 
-  // Berpindah ke soal berikutnya
   void nextQuestion() {
-    if (_currentIndex < totalQuestions - 1) {
-      _currentIndex++;
-      notifyListeners();
-    }
+    if (_currentIndex >= totalQuestions - 1) return;
+    _currentIndex++;
+    notifyListeners();
   }
 
-  // Kembali ke soal sebelumnya
   void previousQuestion() {
-    if (_currentIndex > 0) {
-      _currentIndex--;
-      notifyListeners();
-    }
+    if (_currentIndex <= 0) return;
+    _currentIndex--;
+    notifyListeners();
   }
 
-  // Memeriksa jawaban saat tombol Selesai ditekan
+  // kembali ke soal yang belum dijawab
   bool finishQuiz() {
     final firstUnanswered = _answers.indexOf(null);
-
     if (firstUnanswered != -1) {
       _currentIndex = firstUnanswered;
       notifyListeners();
       return false;
     }
-
     return true;
   }
 
-
-  // Menghitung jumlah jawaban benar
   int get correctCount {
-    int count = 0;
-
-    for (int i = 0; i < quizQuestions.length; i++) {
-      if (_answers[i] == quizQuestions[i].correctIndex) {
-        count++;
-      }
+    var correct = 0;
+    for (var i = 0; i < totalQuestions; i++) {
+      if (_answers[i] == quizQuestions[i].correctIndex) correct++;
     }
-
-    return count;
+    return correct;
   }
 
-  // Menghitung nilai akhir
-  int get score =>
-      (correctCount / totalQuestions * 100).round();
+  int get score => totalQuestions == 0
+      ? 0
+      : (correctCount / totalQuestions * 100).round();
 
-  void resetQuiz() {
+  void _clearAnswers() {
     _currentIndex = 0;
-
-    for (int i = 0; i < _answers.length; i++) {
+    for (var i = 0; i < _answers.length; i++) {
       _answers[i] = null;
     }
+  }
 
+  void resetQuiz() {
+    _clearAnswers();
     notifyListeners();
   }
 }

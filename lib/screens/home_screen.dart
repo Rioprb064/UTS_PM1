@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../config/app_theme.dart';
+import '../config/app_assets.dart';
+import '../widgets/responsive_container.dart';
+import '../widgets/primary_button.dart';
 import '../state/quiz_controller.dart';
-import '../state/theme_controller.dart';
+import '../widgets/theme_toggle_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,6 @@ class HomeScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final userName = context.watch<QuizController>().userName;
-    final isDarkMode = context.watch<ThemeController>().isDarkMode;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        toolbarHeight: screenHeight * 0.09 ,
+        toolbarHeight: (screenHeight * 0.09).clamp(56.0, 76.0).toDouble(),
         leading: const SizedBox(width: 56),
         title: FittedBox(
           fit: BoxFit.scaleDown,
@@ -38,19 +38,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              context.read<ThemeController>().toggleTheme();
-            },
-            icon: Icon(
-              isDarkMode ? Icons.light_mode : Icons.dark_mode,
-              color: Theme.of(context).colorScheme.onSurface,
-              size: 28,
-            ),
-            tooltip: isDarkMode
-                ? 'Aktifkan Mode Terang'
-                : 'Aktifkan Mode Gelap',
-          ),
+          const ThemeToggleButton(),
           const SizedBox(width: 8),
         ],
       ),
@@ -67,77 +55,57 @@ class HomeScreen extends StatelessWidget {
                 .clamp(12.0, 28.0)
                 .toDouble(),
           ),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Halo, $userName!',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineMedium,
+          child: ResponsiveContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Halo, $userName!',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+
+                SizedBox(height: screenHeight * 0.01),
+
+                Text(
+                  'Sudah siap untuk memulai kuis?',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+
+                SizedBox(height: screenHeight * 0.01),
+
+                Image.asset(
+                  AppAssets.home,
+                  width: double.infinity,
+                  height: screenHeight * 0.3,
+                  fit: BoxFit.contain,
+                ),
+
+                SizedBox(height: screenHeight * 0.02),
+
+                // tombol mulai
+                PrimaryButton(
+                  label: 'Mulai Kuis',
+                  height: (screenHeight * 0.07).clamp(48.0, 60.0).toDouble(),
+                  onPressed: () => context.go('/quiz'),
+                ),
+
+                SizedBox(
+                  height: (screenHeight * 0.015)
+                      .clamp(6.0, 14.0)
+                      .toDouble(),
+                ),
+
+                // tombol ganti nama
+                OutlinedButton(
+                  onPressed: () => context.go('/'),
+                  child: Text(
+                    'Ganti Nama',
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
-
-                  SizedBox(height: screenHeight * 0.01),
-
-                  Text(
-                    'Sudah siap untuk memulai kuis?',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-
-                  SizedBox(height: screenHeight * 0.01),
-
-                  Image.asset(
-                    'assets/images/home.png',
-                    width: double.infinity,
-                    height: screenHeight * 0.3,
-                    fit: BoxFit.contain,
-                  ),
-
-                  SizedBox(height: screenHeight * 0.02),
-
-                  // tombol mulai
-                  SizedBox(
-                    height: (screenHeight * 0.07)
-                        .clamp(48.0, 60.0)
-                        .toDouble(),
-                    child: ElevatedButton(
-                      onPressed: () => context.go('/quiz'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.tertiary,
-                        foregroundColor: isDarkMode
-                            ? AppColors.darkBackground
-                            : AppColors.text,
-                      ),
-                      child: Text(
-                        'Mulai Kuis',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: isDarkMode
-                              ? AppColors.darkBackground
-                              : AppColors.text,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: (screenHeight * 0.015)
-                        .clamp(6.0, 14.0)
-                        .toDouble(),
-                  ),
-
-                  // tombol ganti nama
-                  OutlinedButton(
-                    onPressed: () => context.go('/'),
-                    child: Text(
-                      'Ganti Nama',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

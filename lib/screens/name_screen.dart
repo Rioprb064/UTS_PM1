@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../state/quiz_controller.dart';
-import '../state/theme_controller.dart';
+import '../widgets/theme_toggle_button.dart';
+import '../config/app_assets.dart';
 
 class NameScreen extends StatefulWidget {
   const NameScreen({super.key});
@@ -28,14 +29,13 @@ class _NameScreenState extends State<NameScreen> {
 
     context.read<QuizController>().setUserName(name);
 
-    context.go('/home', extra: name);
+    context.go('/home');
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final isDarkMode = context.watch<ThemeController>().isDarkMode;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -73,24 +73,7 @@ class _NameScreenState extends State<NameScreen> {
                         right: 0,
                         top: 0,
                         bottom: 0,
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(
-                            minWidth: 40,
-                            minHeight: 40,
-                          ),
-                          onPressed: () {
-                            context.read<ThemeController>().toggleTheme();
-                          },
-                          icon: Icon(
-                            isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                            color: Theme.of(context).colorScheme.onSurface,
-                            size: 28,
-                          ),
-                          tooltip: isDarkMode
-                              ? 'Aktifkan Mode Terang'
-                              : 'Aktifkan Mode Gelap',
-                        ),
+                        child: const ThemeToggleButton(compact: true),
                       ),
                     ],
                   ),
@@ -113,7 +96,7 @@ class _NameScreenState extends State<NameScreen> {
 
           Container(
             child: Image.asset(
-              'assets/images/anak_sd.png',
+              AppAssets.welcome,
               width: screenWidth * 0.5,
               height: screenHeight * 0.18,
               fit: BoxFit.contain,
@@ -223,7 +206,7 @@ class _NameScreenState extends State<NameScreen> {
                             // Tombol lanjut
                             SizedBox(
                               width: double.infinity,
-                              height: screenHeight * 0.06,
+                              height: (screenHeight * 0.06).clamp(48.0, 60.0).toDouble(),
 
                               child: ElevatedButton(
                                 onPressed: _continueToHome,
