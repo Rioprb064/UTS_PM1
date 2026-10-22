@@ -41,27 +41,27 @@ Kuis Asah Otak adalah aplikasi kuis pilihan ganda yang memungkinkan pengguna mem
 
 **NameScreen — Halaman Input Nama**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Name_screen.jpeg" alt="Halaman Input Nama" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Name_screen.jpeg?raw=true)
 
 **HomeScreen — Halaman Utama**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Home_screen.jpeg" alt="Halaman Utama" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Home_screen.jpeg?raw=true)
 
 **QuizScreen — Halaman Kuis**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Quiz_screen.jpeg" alt="Halaman Kuis" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Quiz_screen.jpeg?raw=true)
 
 **ResultScreen — Halaman Hasil Kuis**
 
-<img src="E:\Android Studio\uts_pm1\assets\images\screenshot\Result_screen.jpeg" alt="Halaman Hasil Kuis" width="80">
+![image URL](https://github.com/Rioprb064/UTS_PM1/blob/main/assets/images/screenshot/Result_screen.jpeg?raw=true)
 
 ### Link Mockup/Prototype Aplikasi
 
-[https://www.canva.com/design/DAHYebsyy0U/7gMTPUb2AAwoB6RivF1GQA/edit]
+https://www.canva.com/design/DAHYebsyy0U/7gMTPUb2AAwoB6RivF1GQA/edit
 
 ### Link Video Presentasi (Google Drive)
 
-[Masukkan link video presentasi Google Drive]
+https://drive.google.com/drive/folders/1IuiV9FfPAF1O7Nvv7kpn125LPMYNlwoW?usp=sharing
 
 ## 4. Video Presentasi (Maksimal 10 Menit)
 
